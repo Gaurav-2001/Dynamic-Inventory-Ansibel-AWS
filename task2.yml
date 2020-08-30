@@ -1,0 +1,11 @@
+- hosts: localhost
+  vars_files:
+          - secure.yml
+  roles:
+          - aws_instance
+
+- hosts: ec2
+  user: ec2-user
+  roles:
+          - webserver
+

@@ -1,0 +1,24 @@
+---
+# tasks file for aws_instance
+- name: provision os in aws
+  ec2:
+          key_name: "mykey_ssh1"
+          region: "ap-south-1"
+          image: "{{ ami_id }}"
+          instance_type: "{{ instance_type }}"
+          vpc_subnet_id: "{{ vpc_subnet_id }}"
+          count: 1
+          state: present
+          wait: yes
+          assign_public_ip: yes
+          aws_access_key: "{{ akey }}"
+          aws_secret_key: "{{ skey }}"
+          group_id: "{{ security_group }}"
+
+- name: Refresh inventory to ensure new instances exist in inventory
+  meta: refresh_inventory
+
+- name: wait for a while
+  pause:
+          minutes: 2
+

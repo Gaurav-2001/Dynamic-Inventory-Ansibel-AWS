@@ -1,0 +1,37 @@
+---
+# tasks file for webserver
+  - name: Install Required Package
+    package:
+            name: python3
+            state: present
+    become: true
+
+  - name: install httpd package
+    package:
+            name: "httpd"
+            state: present
+    when: ansible_distribution == "RedHat"
+    become: true
+    register: x
+
+  - name: document root dir
+    file:
+            state: directory
+            dest:  "{{ dcdir }}"
+    register: y
+    become: true
+
+  - name: conf web server
+    template:
+            dest: /etc/httpd/conf.d/gaurav.conf
+            src: templates/localconf.conf.j2
+    when: x.rc == 0
+    notify: restart services
+    become: true
+
+  - name: copy web page from url
+    get_url:
+            dest: "{{ dcdir }}"
+            url: "https://raw.githubusercontent.com/Gaurav-2001/Ansible-Task2/master/index.html"
+    when: y.failed ==  false
+    become: true

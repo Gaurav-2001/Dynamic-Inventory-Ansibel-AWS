@@ -1,0 +1,4 @@
+---
+# vars file for webserver
+dcdir: "/var/www/gaurav/"
+port: 81

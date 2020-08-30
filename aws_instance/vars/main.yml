@@ -1,0 +1,6 @@
+---
+# vars file for aws_instance
+ami_id: "ami-052c08d70def0ac62"
+instance_type: "t2.micro"
+vpc_subnet_id: "subnet-8ad2e8e2"
+security_group: "sg-02d0e9263a788f8aa"
